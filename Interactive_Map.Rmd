@@ -1,11 +1,45 @@
 ---
-title: "Interactive_Map"
-author: "Daniel Ludewig"
+title: "Interactive Map"
 date: "12 October 2017"
 output: html_document
 ---
 
 # Tourist Sites of Edinburgh
 
+Here are some of the most interesting tourist sites of my favorite city, Edinburgh!
 
+```{r, echo=FALSE}
+
+suppressPackageStartupMessages(library(leaflet))
+suppressPackageStartupMessages(library(dplyr))
+
+attractions <- c(
+                  "<b><a href= 'https://www.edinburghcastle.gov.uk/'>Edinburgh Castle</a><b>", 
+                 "<b><a href= 'https://www.royalcollection.org.uk/visit/palace-of-holyroodhouse'>Palace of Holyrood</a><b>", 
+                 "<b><a href='https://en.wikipedia.org/wiki/Greyfriars_Bobby'>Greyfriars Bobby</a></b>",
+                  "<b><a href='https://www.realmarykingsclose.com/'>Mary King's Close</a></b>", 
+                 "<b><a href='http://www.stgilescathedral.org.uk/'>St Giles' Cathedral</a></b>", 
+                 "<b><a href='https://www.nms.ac.uk/national-museum-of-scotland/'>Museum of Scotland</a></b>", 
+                 "<b><a href='https://en.wikipedia.org/wiki/Arthur%27s_Seat'>Arthur's Seat</a></b>", 
+                 "<b><a href='https://en.wikipedia.org/wiki/Scott_Monument'>Scott Monument</a></b>", 
+                  "<b><a href='https://en.wikipedia.org/wiki/Calton_Hill'>Calton Hill</a></b>", 
+                 "<b><a href='http://www.royalyachtbritannia.co.uk/'>HMY Britannia</a></b>", 
+                 "<b><a href='http://www.edinburghzoo.org.uk/'>Edinburgh Zoo</a></b>", 
+                 "<b><a href='http://www.rosslynchapel.com/'>Rosslyn Chapel</a></b>", 
+                 "<b><a href='https://en.wikipedia.org/wiki/Murrayfield_Stadium> Murrayfield</a></b>")
+
+latitudes <- c(55.9486, 55.9527, 55.9469, 55.9499, 55.9495, 55.9472, 55.9441, 
+               55.9524, 55.9550, 55.9822, 55.9422, 55.8554, 55.9478)
+
+
+longitudes <- c(-3.1999, -3.1723, -3.1913, -3.1905, -3.1909, -3.1892, -3.1618, 
+                -3.1933, -3.1827, -3.1773, -3.2693, -3.1602, -3.2551)
+
+map <- leaflet() %>%
+      addTiles() %>%
+      addMarkers(lng=longitudes, lat=latitudes, popup= attractions, 
+                 clusterOptions = markerClusterOptions())
+
+map
+```
 
