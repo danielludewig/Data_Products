@@ -26,7 +26,7 @@ attractions <- c(
                  "<b><a href='http://www.royalyachtbritannia.co.uk/'>HMY Britannia</a></b>", 
                  "<b><a href='http://www.edinburghzoo.org.uk/'>Edinburgh Zoo</a></b>", 
                  "<b><a href='http://www.rosslynchapel.com/'>Rosslyn Chapel</a></b>", 
-                 "<b><a href='https://en.wikipedia.org/wiki/Murrayfield_Stadium> Murrayfield</a></b>")
+                 "<b><a href='https://en.wikipedia.org/wiki/Murrayfield_Stadium'>Murrayfield</a></b>")
 
 latitudes <- c(55.9486, 55.9527, 55.9469, 55.9499, 55.9495, 55.9472, 55.9441, 
                55.9524, 55.9550, 55.9822, 55.9422, 55.8554, 55.9478)
