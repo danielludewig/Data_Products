@@ -1,0 +1,47 @@
+---
+title: "Week 3 Project"
+author: "Daniel Ludewig"
+date: "18 October 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Data Set
+
+The data used for this project describes Tourism in Scotland by demographics. 
+
+The data was collected and published by VisitScotland, and can be found [here](http://statistics.gov.scot/data/tourism-day-visits---demographics).
+
+It is described as: 
+
+> *The Great Britain Day Visitor Survey started in 2011 and was conducted using an online methodology. Over 35,000 interviews are conducted with adults aged 16 and over resident in England, Wales and Scotland during 52 weekly survey waves.*
+
+```{r data, echo=FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(plotly))
+
+url <- "http://statistics.gov.scot/downloads/cube-table?uri=http%3A%2F%2Fstatistics.gov.scot%2Fdata%2Ftourism-day-visits---demographics"
+
+download.file(url, destfile = "tourism_data.csv")
+
+Tourism_Data <- read.csv("tourism_data.csv", header = TRUE)
+filtered_data <- filter(Tourism_Data, Age != "All" & Units == "Million Visits")
+filtered_data <- filtered_data[order(filtered_data$DateCode), ]
+colnames(filtered_data)[2]<- "Year"
+colnames(filtered_data)[5]<-"Million_Visits"
+
+```
+
+## Million Visits vs Year by Demongraphic
+
+```{r plot}
+
+plot_ly(filtered_data, x=~Year, y=~Million_Visits, type="scatter", mode = "lines", color= ~Age)
+```
+
+## Thanks!!
+
+I look forward to your feedback. 
