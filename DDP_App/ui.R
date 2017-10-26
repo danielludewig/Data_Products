@@ -5,21 +5,41 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Healthy Life Expectancy in Scotland"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+       h3("Range of Analysis"),
+       sliderInput("years", "Select Years to be included", 
+                   min = 1980, max = 2010, value = c(1980, 2010), sep = ""),
+       h5(tags$b("Select genders to include")),      
+       checkboxInput("male", "Male", FALSE),
+       checkboxInput("female", "Female", FALSE),
+       h5(tags$b("Select models to include")),
+       checkboxInput("modelMale", "Male", FALSE),
+       checkboxInput("modelFemale", "Female", FALSE),
+       h3("Predictions on current model"),
+       numericInput("predictYear",
+                    "Select a year to predict the healthy life expectancy based on the displayed models",
+                    value = 2010, min = 1950, max = 2050, step = 1)
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("distPlot")
+       tabsetPanel(type ="tabs",
+                   tabPanel("Plot", br(),
+                            h3("Average Life Expectancy over Time"),
+                            plotOutput("LE_Plot", height = "600px")),
+                   tabPanel("Predictions", br(),
+                            h3("Predictions at Defined Year"),
+                            h5(tags$b(textOutput("maleHead"))),
+                            textOutput("malePrediction"),
+                            tableOutput("maleTable")),
+                            h5(tags$b(textOutput("femaleHead"))),
+                            textOutput("femalePrediction")
+                            
+                              
     )
   )
-))
+)))
