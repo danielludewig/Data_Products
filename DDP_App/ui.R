@@ -22,7 +22,10 @@ shinyUI(fluidPage(
        h3("Predictions on current model"),
        numericInput("predictYear",
                     "Select a year to predict the healthy life expectancy based on the displayed models",
-                    value = 2010, min = 1950, max = 2050, step = 1)
+                    value = 2010, min = 1950, max = 2050, step = 1),
+       a(tags$b("Application Documentation", 
+                href = "https://danielludewig.github.io/Data_Products/App_Documentation.html",
+                target ="_blank"))
     ),
     
     # Show a plot of the generated distribution
