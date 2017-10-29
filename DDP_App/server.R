@@ -51,7 +51,8 @@ shinyServer(function(input, output) {
                            (DateCode >= minYear)&(DateCode <= maxYear))
             maleModel <- lm(data = data[which(data$Gender=="Male"),],
                             formula = Value~DateCode)
-            predict(maleModel, newdata=data.frame(DateCode=input$predictYear))
+            round(predict(maleModel, 
+                    newdata=data.frame(DateCode=input$predictYear)),2)
             })
       
       femalePredict <- reactive({
@@ -61,24 +62,72 @@ shinyServer(function(input, output) {
                            (DateCode >= minYear)&(DateCode <= maxYear))
             femaleModel <- lm(data = data[which(data$Gender=="Female"),], 
                               formula = Value~DateCode)
-            predict(femaleModel,newdata=data.frame(DateCode=input$predictYear))
+            round(predict(femaleModel,
+                          newdata=data.frame(DateCode=input$predictYear)),2)
             })
       
       # Define prediction headings
-      output$maleHead <- renderText({
-            ifelse(input$modelMale,
-                   "Predicted Male Healthy Life Expectancy:","")})
-      output$femaleHead <- renderText({
-            ifelse(input$modelFemale,
-                   "Predicted Female Healthy Life Expectancy:","")})
+      output$maleHead <- renderText({"Predicted Male Healthy Life Expectancy:"})
+      output$femaleHead <- renderText({"Predicted Female Healthy Life Expectancy:"})
       
       # Calculate Predictions 
       output$malePrediction <- renderText({malePredict()})
       output$femalePrediction <- renderText({femalePredict()})
       
       # Generate Stat tables
-      tableM <- as.data.frame(summary(maleModel)$coeff)
+     mT <- reactive({
+           
+           minYear <- input$years[1]
+           maxYear <- input$years[2]
+           data <- filter(all_data, 
+                          (DateCode >= minYear)&(DateCode <= maxYear))
+           maleModel <- lm(data = data[which(data$Gender=="Male"),],
+                           formula = Value~DateCode)
+           summary(maleModel)$coeff
+          })
             
-      output$maleTable <-renderTable(tableM, rownames = TRUE, bordered = TRUE)
+      output$maleTable <- renderTable({as.data.frame(mT())}, 
+                                      bordered = TRUE, rownames = TRUE)
+            
+      fT <- reactive({
+            
+            minYear <- input$years[1]
+            maxYear <- input$years[2]
+            data <- filter(all_data, 
+                           (DateCode >= minYear)&(DateCode <= maxYear))
+            femaleModel <- lm(data = data[which(data$Gender=="Female"),],
+                            formula = Value~DateCode)
+            summary(femaleModel)$coeff
+      })
       
+      output$femaleTable <- renderTable({as.data.frame(fT())}, 
+                                      bordered = TRUE, rownames = TRUE)
+      
+      # Generate Adjusted R-squared values
+      
+      mR <- reactive({
+            
+            minYear <- input$years[1]
+            maxYear <- input$years[2]
+            data <- filter(all_data, 
+                           (DateCode >= minYear)&(DateCode <= maxYear))
+            maleModel <- lm(data = data[which(data$Gender=="Male"),],
+                            formula = Value~DateCode)
+            round(summary(maleModel)$r.squar,4)
+      })
+      output$m_R <- renderText(paste(
+            "R-squared value:", mR()))
+      
+      fR <- reactive({
+            
+            minYear <- input$years[1]
+            maxYear <- input$years[2]
+            data <- filter(all_data, 
+                           (DateCode >= minYear)&(DateCode <= maxYear))
+            femaleModel <- lm(data = data[which(data$Gender=="Female"),],
+                              formula = Value~DateCode)
+            round(summary(femaleModel)$r.squar,4)
+      })
+      output$f_R <- renderText(paste(
+            "R-squared value:", fR()))
 })

@@ -34,12 +34,14 @@ shinyUI(fluidPage(
                    tabPanel("Predictions", br(),
                             h3("Predictions at Defined Year"),
                             h5(tags$b(textOutput("maleHead"))),
-                            textOutput("malePrediction"),
-                            tableOutput("maleTable")),
+                            textOutput("malePrediction"),br(),
+                            tableOutput("maleTable"))), textOutput("m_R"),
+                            h3("Predictions at Defined Year"),
                             h5(tags$b(textOutput("femaleHead"))),
-                            textOutput("femalePrediction")
+                            textOutput("femalePrediction"), br(),
+                            tableOutput("femaleTable"), textOutput("f_R")
                             
                               
     )
   )
-)))
+))
