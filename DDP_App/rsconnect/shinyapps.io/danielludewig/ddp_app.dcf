@@ -1,0 +1,10 @@
+name: ddp_app
+title:
+username:
+account: danielludewig
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 230341
+bundleId: 1050842
+url: https://danielludewig.shinyapps.io/ddp_app/
+when: 1509307590.39097
