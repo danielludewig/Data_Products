@@ -1,0 +1,37 @@
+---
+title: "Application Documentation"
+author: "Daniel Ludewig"
+date: "29 October 2017"
+output: html_document
+---
+
+# Healthy Life Expectancy in Scotland
+
+This application deals it Healthy Life Expectancy (HLE) in Scotland. The data used by this application can be found at [Scotlands Open Access Statistics](http://statistics.gov.scot/data/healthy-life-expectancy). 
+Linear models are fit, describing HLE as a function of time (in years), plotted, and used in predictions. The years to be included in the model is controlled by the user.
+
+## Definitions 
+
+HLE is defined as:
+
+> Life expectancy (LE) is an estimate of how many years a person might be expected to live, whereas healthy life expectancy (HLE) is an estimate of how many years they might live in a 'healthy' state. HLE is a key summary measure of a population's health.
+
+More information can be found at the linked quoted above. 
+
+## Useage
+
+The application is relatively easy to use. 
+
+* It is made up of a side panel, which is interactive, and the main panel, which is where plots and results are displayed. 
+
+* The side panel on the left hand side of the screen controls the user inputs. 
+      + The slider is there so the user to change the range of years that are plotted and included in any statistical models. 
+      + There are two check boxes, **Male** and **Female**, which controls which points are displayed on the plot. 
+      + Another two checkpoints, **Male Model** and **Female Model**, which controls which linear models are displayed on the plot. 
+      + The is a numeric input which controls what the HLEs will be, based on the current model.
+      
+* The main panel has two separate tabs.
+      + The first tab, **Plot**, is where a plot of the user selected data is displayed. 
+      + The second tab, **Predictions**, displays predicted HLEs using a model outlined by the user. It also displays a table of the coefficients of the model, and R-squared value. 
+
+I hope you find my application helpful and interesting. 
