@@ -1,0 +1,50 @@
+---
+title: "My Shiny Application"
+author: "Daniel Ludewig"
+date: "31 October 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+```
+
+## Healthy Life Expectancy in Scotland
+
+I have developed an app that takes historical Healthy Life Expectancy (HLE) rates for men and women and displays them on a plot. 
+
+It also allows the user to select the range of years displayed, fits a linear model and predicts future or past HLEs. 
+
+## What is Healthy Life Expectancy?
+
+According to the [data source](http://statistics.gov.scot/data/healthy-life-expectancy), HLE is:
+
+> HLE is an estimate of how long the average person might be expected to live in a 'healthy' state.
+
+It differs from Life Expectancy, which is more plainly estimate of how many years a person might be expected to live. 
+
+It is a key summary of a populations health. 
+
+## Displaying the Data
+
+The plot below, is an example of a plot displayed by the app. 
+
+```{r plot}
+suppressPackageStartupMessages(library(dplyr))
+all_data <- read.csv("https://danielludewig.github.io/Data_Products/test_data.csv", 
+                 header = TRUE)
+data <- filter(all_data, (Confidence.Interval == "All")&(DateCode < 2009))
+with(data, plot(x=DateCode, y= Value, type = "n"))
+with(data[which(data$Gender=="Male"),],points(x=DateCode, y=Value, pch=20, col="steelblue"))
+with(data[which(data$Gender=="Female"),],points(x=DateCode, y=Value,pch=20, col="coral"))  
+```
+
+## Predictions
+
+The **Predictions** tab takes the information entered by the user on the side panel, fits a linear model, and predicts the HLE for the year stipulated by the user. 
+
+It will also display the relevant statistical information associated with the model. 
+
+Thanks for reading. 
+
+
